@@ -1,0 +1,30 @@
+# top-most EditorConfig file
+root = true
+
+# GENERIC SETTINGS
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# WEB FILES
+[*.{css,html,js}]
+charset = utf-8
+indent_style = space
+trim_trailing_whitespace = true
+
+# INDENT SIZE = 2
+[*.{js,json}]
+indent_size = 2
+
+#INDENT SIZE = 4
+[*.{css,html}]
+indent_size = 4
+
+# MARKDOWN
+[*.md]
+trim_trailing_whitespace = false
+
+# NODE PROJECTS
+[{bower.json,package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
