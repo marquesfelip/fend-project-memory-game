@@ -26,6 +26,20 @@ function shuffle(array) {
   return array;
 }
 
+let displayCard = function() {
+  let card = this.getAttribute( 'class' );
+
+  if( !(this.classList.contains( 'show' )) ) {
+    this.setAttribute( 'class' , `${card} show open` );
+  }
+};
+
+
+let liArray = document.getElementsByClassName( 'card' );
+
+Array.from( liArray ).forEach( element => {
+  element.addEventListener( 'click' , displayCard );
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
