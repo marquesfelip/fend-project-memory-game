@@ -25,12 +25,10 @@ Array.from(liArray).forEach(function (element, index) {
         memorizarCartas(conteudo, index);
         combinarCartas();
       }
-
-    } else {
+    } else if (cartasAbertas.length <= 2) {
       virarCarta(this);
       memorizarCartas(conteudo, index);
     }
-
   });
 });
 
@@ -38,19 +36,11 @@ function combinarCartas() {
   let cartaUm = cartasClicadas[0];
   let cartaDois = cartasClicadas[1];
   if (cartasAbertas[0] === cartasAbertas[1]) {
-    for (var index in liArray) {
-      if(index == cartaUm || index == cartaDois) {
-        cartasCombinadas(liArray[index]);
-      }
-    };
+    percorrerArrayLi("cartasCombinadas", cartaUm, cartaDois);
     limparArrays();
   } else {
     setTimeout(function() {
-      for (var index in liArray) {
-        if(index == cartaUm || index == cartaDois) {
-          desvirarCarta(liArray[index]);
-        }
-      };
+      percorrerArrayLi("desvirarCarta", cartaUm, cartaDois);
       limparArrays();
     }, 600);
   }
@@ -62,6 +52,14 @@ function reiniciarJogo() {
   };
   limparArrays();
   shuffle(liArray);
+}
+
+function percorrerArrayLi(func, cartaUm, cartaDois) {
+  for (var index in liArray) {
+    if(index == cartaUm || index == cartaDois) {
+      window[func](liArray[index]);
+    }
+  };
 }
 
 function limparArrays() {
