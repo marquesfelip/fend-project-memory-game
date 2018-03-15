@@ -13,6 +13,7 @@
 var liArray = document.getElementsByClassName('card');
 var cartasAbertas = [];
 var cartasClicadas = [];
+var jogada = 0;
 
 Array.from(liArray).forEach(function (element, index) {
   element.addEventListener('click', function () {
@@ -24,6 +25,7 @@ Array.from(liArray).forEach(function (element, index) {
         virarCarta(this);
         memorizarCartas(conteudo, index);
         combinarCartas();
+        acrescentarJogada();
       }
     } else if (cartasAbertas.length <= 2) {
       virarCarta(this);
@@ -52,6 +54,7 @@ function reiniciarJogo() {
   };
   limparArrays();
   shuffle(liArray);
+  jogada = 0;
 }
 
 function percorrerArrayLi(func, cartaUm, cartaDois) {
@@ -60,6 +63,13 @@ function percorrerArrayLi(func, cartaUm, cartaDois) {
       window[func](liArray[index]);
     }
   };
+}
+
+function acrescentarJogada() {
+  jogada += 1;
+  var moves = document.getElementsByClassName('moves');
+  moves[0].innerHTML = `Jogadas: ${jogada}`;
+
 }
 
 function limparArrays() {
