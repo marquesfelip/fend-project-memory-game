@@ -10,6 +10,82 @@
  *   - add each card's HTML to the page
  */
 
+var liArray = document.getElementsByClassName('card');
+var cartasAbertas = [];
+var cartasClicadas = [];
+
+Array.from(liArray).forEach(function (element, index) {
+  element.addEventListener('click', function () {
+
+    var conteudo = this.innerHTML.trim();
+
+    if (cartasAbertas.length > 0) {
+      if (!(cartasClicadas.includes(index))) {
+        virarCarta(this);
+        memorizarCartas(conteudo, index);
+        combinarCartas();
+      }
+
+    } else {
+      virarCarta(this);
+      memorizarCartas(conteudo, index);
+    }
+
+  });
+});
+
+function combinarCartas() {
+  let cartaUm = cartasClicadas[0];
+  let cartaDois = cartasClicadas[1];
+  if (cartasAbertas[0] === cartasAbertas[1]) {
+    for (var index in liArray) {
+      if(index == cartaUm || index == cartaDois) {
+        cartasCombinadas(liArray[index]);
+      }
+    };
+    limparArrays();
+  } else {
+    setTimeout(function() {
+      for (var index in liArray) {
+        if(index == cartaUm || index == cartaDois) {
+          desvirarCarta(liArray[index]);
+        }
+      };
+      limparArrays();
+    }, 600);
+  }
+}
+
+function reiniciarJogo() {
+  for (var index in liArray) {
+    desvirarCarta(liArray[index]);
+  };
+  limparArrays();
+  shuffle(liArray);
+}
+
+function limparArrays() {
+  cartasAbertas = [];
+  cartasClicadas = [];
+}
+
+function memorizarCartas(conteudo, index) {
+  cartasAbertas.push(conteudo);
+  cartasClicadas.push(index);
+}
+
+function cartasCombinadas(elemento) {
+  elemento.setAttribute('class', 'card show match');
+}
+
+function virarCarta(elemento) {
+  elemento.setAttribute('class', 'card show open');
+}
+
+function desvirarCarta(elemento) {
+  elemento.setAttribute('class', 'card');
+}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length,
@@ -25,21 +101,6 @@ function shuffle(array) {
 
   return array;
 }
-
-let displayCard = function() {
-  let card = this.getAttribute( 'class' );
-
-  if( !(this.classList.contains( 'show' )) ) {
-    this.setAttribute( 'class' , `${card} show open` );
-  }
-};
-
-
-let liArray = document.getElementsByClassName( 'card' );
-
-Array.from( liArray ).forEach( element => {
-  element.addEventListener( 'click' , displayCard );
-});
 
 /*
  * set up the event listener for a card. If a card is clicked:
