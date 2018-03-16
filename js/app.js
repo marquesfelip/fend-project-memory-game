@@ -2,7 +2,6 @@
  * Create a list that holds all of your cards
  */
 
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -54,7 +53,7 @@ function reiniciarJogo() {
   };
   limparArrays();
   shuffle(liArray);
-  jogada = 0;
+  document.getElementsByClassName('moves')[0].innerHTML = `Jogadas: 0`;
 }
 
 function percorrerArrayLi(func, cartaUm, cartaDois) {
@@ -67,9 +66,7 @@ function percorrerArrayLi(func, cartaUm, cartaDois) {
 
 function acrescentarJogada() {
   jogada += 1;
-  var moves = document.getElementsByClassName('moves');
-  moves[0].innerHTML = `Jogadas: ${jogada}`;
-
+  document.getElementsByClassName('moves')[0].innerHTML = `Jogadas: ${jogada}`;
 }
 
 function limparArrays() {
