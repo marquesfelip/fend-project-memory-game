@@ -9,10 +9,16 @@
  *   - add each card's HTML to the page
  */
 
+var jogadas = document.getElementsByClassName('jogadas');
 var liArray = document.getElementsByClassName('card');
+var tempo = document.getElementsByClassName('temporizador');
+
 var cartasAbertas = [];
 var cartasClicadas = [];
 var jogada = 0;
+var segundos = 0, minutos = 0;
+
+iniciarTempo();
 
 Array.from(liArray).forEach(function (element, index) {
   element.addEventListener('click', function () {
@@ -53,7 +59,7 @@ function reiniciarJogo() {
   };
   limparArrays();
   shuffle(liArray);
-  document.getElementsByClassName('moves')[0].innerHTML = `Jogadas: 0`;
+  jogadas[0].innerHTML = `Jogadas: 0`;
 }
 
 function percorrerArrayLi(func, cartaUm, cartaDois) {
@@ -64,9 +70,20 @@ function percorrerArrayLi(func, cartaUm, cartaDois) {
   };
 }
 
+function iniciarTempo() {
+  setInterval(function() {
+    segundos++;
+    if (segundos === 60) {
+      minutos++;
+      segundos = 0;
+    }
+    tempo[0].innerHTML = `Tempo: ${minutos}:${segundos}`
+  }, 1000);
+}
+
 function acrescentarJogada() {
   jogada += 1;
-  document.getElementsByClassName('moves')[0].innerHTML = `Jogadas: ${jogada}`;
+  jogadas[0].innerHTML = `Jogadas: ${jogada}`;
 }
 
 function limparArrays() {

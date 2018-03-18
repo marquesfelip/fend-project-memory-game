@@ -18,7 +18,6 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png');
-    /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -35,7 +34,7 @@ h1 {
 }
 
 /*
- * Styles for the deck of cards
+ * Estilos para o deck de cartas
  */
 
 .deck {
@@ -83,7 +82,7 @@ h1 {
 }
 
 /*
- * Styles for the Score Panel
+ * Estilo para o painel de pontuação
  */
 
 .score-panel {
@@ -102,6 +101,10 @@ h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+}
+
+.score-panel .temporizador {
+    margin-left: 10%;
 }
 
 .score-panel .restart {
