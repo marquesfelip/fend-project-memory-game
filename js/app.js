@@ -9,21 +9,21 @@
  *   - add each card's HTML to the page
  */
 
-var jogadas = document.getElementsByClassName('jogadas');
-var liArray = document.getElementsByClassName('card');
-var tempo = document.getElementsByClassName('temporizador');
+let jogadas = document.getElementsByClassName('jogadas');
+let liArray = document.getElementsByClassName('card');
+let tempo = document.getElementsByClassName('temporizador');
 
-var cartasAbertas = [];
-var cartasClicadas = [];
-var jogada = 0;
-var segundos = 0, minutos = 0;
+let cartasAbertas = [];
+let cartasClicadas = [];
+let jogada = 0;
+let segundos = 0, minutos = 0;
 
 iniciarTempo();
 
 Array.from(liArray).forEach(function (element, index) {
   element.addEventListener('click', function () {
 
-    var conteudo = this.innerHTML.trim();
+    const conteudo = this.innerHTML.trim();
 
     if (cartasAbertas.length > 0) {
       if (!(cartasClicadas.includes(index))) {
@@ -40,8 +40,8 @@ Array.from(liArray).forEach(function (element, index) {
 });
 
 function combinarCartas() {
-  let cartaUm = cartasClicadas[0];
-  let cartaDois = cartasClicadas[1];
+  const cartaUm = cartasClicadas[0];
+  const cartaDois = cartasClicadas[1];
   if (cartasAbertas[0] === cartasAbertas[1]) {
     percorrerArrayLi("cartasCombinadas", cartaUm, cartaDois);
     limparArrays();
@@ -54,7 +54,7 @@ function combinarCartas() {
 }
 
 function reiniciarJogo() {
-  for (var index in liArray) {
+  for (let index in liArray) {
     desvirarCarta(liArray[index]);
   };
   limparArrays();
@@ -63,7 +63,7 @@ function reiniciarJogo() {
 }
 
 function percorrerArrayLi(func, cartaUm, cartaDois) {
-  for (var index in liArray) {
+  for (let index in liArray) {
     if(index == cartaUm || index == cartaDois) {
       window[func](liArray[index]);
     }
