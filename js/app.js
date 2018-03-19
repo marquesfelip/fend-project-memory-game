@@ -16,7 +16,8 @@ let tempo = document.getElementsByClassName('temporizador');
 let cartasAbertas = [];
 let cartasClicadas = [];
 let jogada = 0;
-let segundos = 0, minutos = 0;
+let segundos = 0,
+  minutos = 0;
 
 iniciarTempo();
 
@@ -25,16 +26,19 @@ Array.from(liArray).forEach(function (element, index) {
 
     const conteudo = this.innerHTML.trim();
 
-    if (cartasAbertas.length > 0) {
-      if (!(cartasClicadas.includes(index))) {
+    if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
+      if (!(this.classList.contains('match'))) {
         virarCarta(this);
         memorizarCartas(conteudo, index);
         combinarCartas();
         acrescentarJogada();
       }
-    } else if (cartasAbertas.length <= 2) {
-      virarCarta(this);
-      memorizarCartas(conteudo, index);
+    } else if (cartasAbertas.length <= 2 && !(cartasClicadas.includes(index))) {
+      if (!(this.classList.contains('match'))) {
+        virarCarta(this);
+        memorizarCartas(conteudo, index);
+      }
+
     }
   });
 });
@@ -46,7 +50,7 @@ function combinarCartas() {
     percorrerArrayLi("cartasCombinadas", cartaUm, cartaDois);
     limparArrays();
   } else {
-    setTimeout(function() {
+    setTimeout(function () {
       percorrerArrayLi("desvirarCarta", cartaUm, cartaDois);
       limparArrays();
     }, 600);
@@ -64,14 +68,14 @@ function reiniciarJogo() {
 
 function percorrerArrayLi(func, cartaUm, cartaDois) {
   for (let index in liArray) {
-    if(index == cartaUm || index == cartaDois) {
+    if (index == cartaUm || index == cartaDois) {
       window[func](liArray[index]);
     }
   };
 }
 
 function iniciarTempo() {
-  setInterval(function() {
+  setInterval(function () {
     segundos++;
     if (segundos === 60) {
       minutos++;
