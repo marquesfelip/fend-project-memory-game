@@ -1,13 +1,8 @@
-/*
- * Create a list that holds all of your cards
- */
+let array = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-anchor', 'fa-leaf',
+'fa-bicycle', 'fa-diamond', 'fa-bomb', 'fa-leaf', 'fa-bomb', 'fa-bolt', 'fa-bicycle',
+'fa-paper-plane-o', 'fa-cube'];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+array = shuffle(array);
 
 let jogadas = document.getElementsByClassName('jogadas');
 let liArray = document.getElementsByClassName('card');
@@ -15,11 +10,16 @@ let tempo = document.getElementsByClassName('temporizador');
 
 let cartasAbertas = [];
 let cartasClicadas = [];
+
 let jogada = 0;
 let segundos = 0,
   minutos = 0;
 
 iniciarTempo();
+
+Array.from(liArray).forEach(function (element, index) {
+  element.innerHTML = `<i class="fa ${array[index]}"></i>`
+});
 
 Array.from(liArray).forEach(function (element, index) {
   element.addEventListener('click', function () {
@@ -62,7 +62,6 @@ function reiniciarJogo() {
     desvirarCarta(liArray[index]);
   };
   limparArrays();
-  shuffle(liArray);
   jogadas[0].innerHTML = `Jogadas: 0`;
 }
 
@@ -114,7 +113,7 @@ function desvirarCarta(elemento) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  var currentIndex = array.length,
+  let currentIndex = array.length,
     temporaryValue, randomIndex;
 
   while (currentIndex !== 0) {
