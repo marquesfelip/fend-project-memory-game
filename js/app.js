@@ -5,38 +5,51 @@ let array = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
 
 array = shuffle(array);
 
-let jogadas = document.getElementsByClassName('jogadas');
-let liArray = document.getElementsByClassName('card');
-let tempo = document.getElementsByClassName('temporizador');
+let jogadas = document.getElementsByClassName("jogadas");
+let liArray = document.getElementsByClassName("card");
+let tempo = document.getElementsByClassName("temporizador");
+let estrelas = document.getElementsByClassName("fa-star");
 
-let cartasAbertas = [];
-let cartasClicadas = [];
+let tempoDeJogo;
 
-let jogada = 0;
+let cartasAbertas = [],
+  cartasClicadas = [];
+
 let segundos = 0,
-  minutos = 0;
-
-iniciarTempo();
+  minutos = 0,
+  totalCartasCombinadas = 0,
+  jogada = 0;
 
 Array.from(liArray).forEach(function (element, index) {
   element.innerHTML = `<i class="fa ${array[index]}"></i>`
 });
 
+Array.from(liArray).forEach(function (element) {
+  setTimeout(() => {
+    virarCarta(element);
+  }, 0);
+  setTimeout(() => {
+    desvirarCarta(element);
+  }, 2000);
+});
+
+iniciarTempo();
+
 Array.from(liArray).forEach(function (element, index) {
   element.addEventListener('click', function () {
 
-    const conteudo = this.innerHTML.trim();
+    const conteudo = element.innerHTML.trim();
 
     if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
-      if (!(this.classList.contains('match'))) {
-        virarCarta(this);
+      if (!(element.classList.contains('match'))) {
+        virarCarta(element);
         memorizarCartas(conteudo, index);
         combinarCartas();
         acrescentarJogada();
       }
     } else if (cartasAbertas.length <= 2 && !(cartasClicadas.includes(index))) {
-      if (!(this.classList.contains('match'))) {
-        virarCarta(this);
+      if (!(element.classList.contains('match'))) {
+        virarCarta(element);
         memorizarCartas(conteudo, index);
       }
     }
@@ -74,7 +87,7 @@ function percorrerArrayLi(func, cartaUm, cartaDois) {
 }
 
 function iniciarTempo() {
-  setInterval(function () {
+  tempoDeJogo = setInterval(function () {
     segundos++;
     if (segundos === 60) {
       minutos++;
@@ -87,6 +100,15 @@ function iniciarTempo() {
 function acrescentarJogada() {
   jogada += 1;
   jogadas[0].innerHTML = `Jogadas: ${jogada}`;
+  if (jogada == 11) {
+    reduzirEstrelas(estrelas[2]);
+  } else if (jogada == 14) {
+    reduzirEstrelas(estrelas[1]);
+  }
+}
+
+function reduzirEstrelas(estrela) {
+  estrela.setAttribute("class", "fa fa-star-o");
 }
 
 function limparArrays() {
@@ -100,7 +122,25 @@ function memorizarCartas(conteudo, index) {
 }
 
 function cartasCombinadas(elemento) {
+
   elemento.setAttribute('class', 'card show match');
+  totalCartasCombinadas++;
+
+  if (totalCartasCombinadas === 16) {
+
+    var pontuacao = '';
+
+    for (let i = 0; i < document.getElementsByClassName("fa-star").length; i++) {
+      pontuacao = pontuacao + '<i class="fa fa-star"></i>';
+    }
+
+    document.getElementsByClassName('modal-body')[0].innerHTML = `Parabéns!
+      Você completou o Jogo da Memória em ${minutos} minuto(s) e ${segundos} segundo(s) <br/>
+      Sua pontuação: ${pontuacao}`;
+
+    clearInterval(tempoDeJogo);
+    $('#modalFimDeJogo').modal();
+  }
 }
 
 function virarCarta(elemento) {
