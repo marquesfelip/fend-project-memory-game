@@ -25,9 +25,7 @@ Array.from(liArray).forEach(function (element, index) {
 });
 
 Array.from(liArray).forEach(function (element) {
-  setTimeout(() => {
-    virarCarta(element);
-  }, 0);
+  virarCarta(element);
   setTimeout(() => {
     desvirarCarta(element);
   }, 2000);
@@ -56,6 +54,46 @@ Array.from(liArray).forEach(function (element, index) {
   });
 });
 
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+  let currentIndex = array.length,
+    temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+function virarCarta(elemento) {
+  elemento.setAttribute('class', 'card show open');
+}
+
+function desvirarCarta(elemento) {
+  elemento.setAttribute('class', 'card');
+}
+
+function iniciarTempo() {
+  tempoDeJogo = setInterval(function () {
+    segundos++;
+    if (segundos === 60) {
+      minutos++;
+      segundos = 0;
+    }
+    tempo[0].innerHTML = `Tempo: ${minutos}:${segundos}`
+  }, 1000);
+}
+
+function memorizarCartas(conteudo, index) {
+  cartasAbertas.push(conteudo);
+  cartasClicadas.push(index);
+}
+
 function combinarCartas() {
   const cartaUm = cartasClicadas[0];
   const cartaDois = cartasClicadas[1];
@@ -70,33 +108,6 @@ function combinarCartas() {
   }
 }
 
-function reiniciarJogo() {
-  for (let index in liArray) {
-    desvirarCarta(liArray[index]);
-  };
-  limparArrays();
-  jogadas[0].innerHTML = `Jogadas: 0`;
-}
-
-function percorrerArrayLi(func, cartaUm, cartaDois) {
-  for (let index in liArray) {
-    if (index == cartaUm || index == cartaDois) {
-      window[func](liArray[index]);
-    }
-  };
-}
-
-function iniciarTempo() {
-  tempoDeJogo = setInterval(function () {
-    segundos++;
-    if (segundos === 60) {
-      minutos++;
-      segundos = 0;
-    }
-    tempo[0].innerHTML = `Tempo: ${minutos}:${segundos}`
-  }, 1000);
-}
-
 function acrescentarJogada() {
   jogada += 1;
   jogadas[0].innerHTML = `Jogadas: ${jogada}`;
@@ -107,8 +118,12 @@ function acrescentarJogada() {
   }
 }
 
-function reduzirEstrelas(estrela) {
-  estrela.setAttribute("class", "fa fa-star-o");
+function percorrerArrayLi(func, cartaUm, cartaDois) {
+  for (let index in liArray) {
+    if (index == cartaUm || index == cartaDois) {
+      window[func](liArray[index]);
+    }
+  };
 }
 
 function limparArrays() {
@@ -116,9 +131,16 @@ function limparArrays() {
   cartasClicadas = [];
 }
 
-function memorizarCartas(conteudo, index) {
-  cartasAbertas.push(conteudo);
-  cartasClicadas.push(index);
+function reiniciarJogo() {
+  for (let index in liArray) {
+    desvirarCarta(liArray[index]);
+  };
+  limparArrays();
+  jogadas[0].innerHTML = `Jogadas: 0`;
+}
+
+function reduzirEstrelas(estrela) {
+  estrela.setAttribute("class", "fa fa-star-o");
 }
 
 function cartasCombinadas(elemento) {
@@ -141,30 +163,6 @@ function cartasCombinadas(elemento) {
     clearInterval(tempoDeJogo);
     $('#modalFimDeJogo').modal();
   }
-}
-
-function virarCarta(elemento) {
-  elemento.setAttribute('class', 'card show open');
-}
-
-function desvirarCarta(elemento) {
-  elemento.setAttribute('class', 'card');
-}
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-  let currentIndex = array.length,
-    temporaryValue, randomIndex;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
 }
 
 /*
