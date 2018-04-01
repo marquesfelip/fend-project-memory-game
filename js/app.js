@@ -3,12 +3,10 @@ let array = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
   'fa-paper-plane-o', 'fa-cube'
 ];
 
-array = shuffle(array);
-
-let jogadas = document.getElementsByClassName("jogadas");
-let liArray = document.getElementsByClassName("card");
-let tempo = document.getElementsByClassName("temporizador");
-let estrelas = document.getElementsByClassName("fa-star");
+const jogadas = document.getElementsByClassName("jogadas");
+const LI_ARRAY = document.getElementsByClassName("card");
+const tempo = document.getElementsByClassName("temporizador");
+const estrelas = document.getElementsByClassName("fa-star");
 
 let tempoDeJogo;
 
@@ -20,39 +18,45 @@ let segundos = 0,
   totalCartasCombinadas = 0,
   jogada = 0;
 
-Array.from(liArray).forEach(function (element, index) {
-  element.innerHTML = `<i class="fa ${array[index]}"></i>`
-});
+iniciarJogo();
 
-Array.from(liArray).forEach(function (element) {
-  virarCarta(element);
-  setTimeout(() => {
-    desvirarCarta(element);
-  }, 2000);
-});
+function iniciarJogo() {
+  array = shuffle(array);
 
-iniciarTempo();
-
-Array.from(liArray).forEach(function (element, index) {
-  element.addEventListener('click', function () {
-
-    const conteudo = element.innerHTML.trim();
-
-    if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
-      if (!(element.classList.contains('match'))) {
-        virarCarta(element);
-        memorizarCartas(conteudo, index);
-        combinarCartas();
-        acrescentarJogada();
-      }
-    } else if (cartasAbertas.length <= 2 && !(cartasClicadas.includes(index))) {
-      if (!(element.classList.contains('match'))) {
-        virarCarta(element);
-        memorizarCartas(conteudo, index);
-      }
-    }
+  Array.from(LI_ARRAY).forEach(function (element, index) {
+    element.innerHTML = `<i class="fa ${array[index]}"></i>`
   });
-});
+
+  Array.from(LI_ARRAY).forEach(function (element) {
+    virarCarta(element);
+    setTimeout(() => {
+      desvirarCarta(element);
+
+    }, 2000);
+  });
+
+  Array.from(LI_ARRAY).forEach(function (element, index) {
+    element.addEventListener('click', function () {
+
+      const conteudo = element.innerHTML.trim();
+
+      if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
+        if (!(element.classList.contains('match'))) {
+          virarCarta(element);
+          memorizarCartas(conteudo, index);
+          combinarCartas();
+          acrescentarJogada();
+        }
+      } else if (cartasAbertas.length <= 2 && !(cartasClicadas.includes(index))) {
+        if (!(element.classList.contains('match'))) {
+          virarCarta(element);
+          memorizarCartas(conteudo, index);
+        }
+      }
+    });
+  });
+  iniciarTempo();
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -89,6 +93,17 @@ function iniciarTempo() {
   }, 1000);
 }
 
+function reiniciarJogo() {
+  limparArrays();
+  jogadas[0].innerHTML = `Jogadas: 0`;
+  tempo[0].innerHTML = `Tempo: 0:0`;
+  segundos = 0;
+  minutos = 0;
+  clearInterval(tempoDeJogo);
+  iniciarJogo();
+}
+
+
 function memorizarCartas(conteudo, index) {
   cartasAbertas.push(conteudo);
   cartasClicadas.push(index);
@@ -111,17 +126,17 @@ function combinarCartas() {
 function acrescentarJogada() {
   jogada += 1;
   jogadas[0].innerHTML = `Jogadas: ${jogada}`;
-  if (jogada == 11) {
+  if (jogada == 13) {
     reduzirEstrelas(estrelas[2]);
-  } else if (jogada == 14) {
+  } else if (jogada == 16) {
     reduzirEstrelas(estrelas[1]);
   }
 }
 
 function percorrerArrayLi(func, cartaUm, cartaDois) {
-  for (let index in liArray) {
+  for (let index in LI_ARRAY) {
     if (index == cartaUm || index == cartaDois) {
-      window[func](liArray[index]);
+      window[func](LI_ARRAY[index]);
     }
   };
 }
@@ -129,14 +144,6 @@ function percorrerArrayLi(func, cartaUm, cartaDois) {
 function limparArrays() {
   cartasAbertas = [];
   cartasClicadas = [];
-}
-
-function reiniciarJogo() {
-  for (let index in liArray) {
-    desvirarCarta(liArray[index]);
-  };
-  limparArrays();
-  jogadas[0].innerHTML = `Jogadas: 0`;
 }
 
 function reduzirEstrelas(estrela) {
@@ -164,14 +171,3 @@ function cartasCombinadas(elemento) {
     $('#modalFimDeJogo').modal();
   }
 }
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
