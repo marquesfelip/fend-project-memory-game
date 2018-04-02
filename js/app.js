@@ -41,7 +41,9 @@ function iniciarJogo() {
 
       const conteudo = element.innerHTML.trim();
 
-      if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
+      if (cartasClicadas.length === 2) {
+        return;
+      } else if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
         if (!(element.classList.contains('match'))) {
           virarCarta(element);
           memorizarCartas(conteudo, index);
@@ -99,6 +101,9 @@ function iniciarTempo() {
 
 function reiniciarJogo() {
   limparArrays();
+  for(let i = 0; i <= estrelas.length; i++) {
+    estrelas[i].setAttribute("class", "fa");
+  }
   jogadas[0].innerHTML = `Jogadas: 0`;
   tempo[0].innerHTML = `Tempo: 00:00`;
   segundos = 0;
