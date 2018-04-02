@@ -94,7 +94,7 @@ function iniciarTempo() {
       tempo[0].innerHTML = `Tempo: ${minutos = ("0" + minutos).slice(-2)}:${segundos}`
     }
 
-  }, 100);
+  }, 1000);
 }
 
 function reiniciarJogo() {
