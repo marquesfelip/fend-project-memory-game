@@ -7,6 +7,7 @@ const jogadas = document.getElementsByClassName("jogadas");
 const LI_ARRAY = document.getElementsByClassName("card");
 const tempo = document.getElementsByClassName("temporizador");
 const estrelas = document.getElementsByClassName("fa-star");
+const bsClassesCards = 'card justify-content-center align-items-center m-2';
 
 let tempoDeJogo;
 
@@ -75,34 +76,36 @@ function shuffle(array) {
 }
 
 function virarCarta(elemento) {
-  elemento.setAttribute('class', 'card show open');
+  elemento.setAttribute('class', `${bsClassesCards} show open`);
 }
 
 function desvirarCarta(elemento) {
-  elemento.setAttribute('class', 'card');
+  elemento.setAttribute('class', `${bsClassesCards}`);
 }
 
 function iniciarTempo() {
   tempoDeJogo = setInterval(function () {
     segundos++;
-    if (segundos === 60) {
+    segundos = ("0" + segundos).slice(-2);
+    if (segundos == 60) {
       minutos++;
       segundos = 0;
+    } else {
+      tempo[0].innerHTML = `Tempo: ${minutos = ("0" + minutos).slice(-2)}:${segundos}`
     }
-    tempo[0].innerHTML = `Tempo: ${minutos}:${segundos}`
-  }, 1000);
+
+  }, 100);
 }
 
 function reiniciarJogo() {
   limparArrays();
   jogadas[0].innerHTML = `Jogadas: 0`;
-  tempo[0].innerHTML = `Tempo: 0:0`;
+  tempo[0].innerHTML = `Tempo: 00:00`;
   segundos = 0;
   minutos = 0;
   clearInterval(tempoDeJogo);
   iniciarJogo();
 }
-
 
 function memorizarCartas(conteudo, index) {
   cartasAbertas.push(conteudo);
@@ -152,7 +155,7 @@ function reduzirEstrelas(estrela) {
 
 function cartasCombinadas(elemento) {
 
-  elemento.setAttribute('class', 'card show match');
+  elemento.setAttribute('class', `${bsClassesCards} show match`);
   totalCartasCombinadas++;
 
   if (totalCartasCombinadas === 16) {
