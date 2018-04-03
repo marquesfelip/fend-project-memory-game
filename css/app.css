@@ -50,16 +50,6 @@ section {
     transition: all 0.3s ease-in-out;
 }
 
-/* .deck .card:hover {
-    animation-name: example;
-    animation-duration: 500ms;
-}
-
-@keyframes example {
-    from {background: #2e3d49;}
-    to {background-color: red;}
-} */
-
 .deck .card.open {
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
@@ -121,5 +111,3 @@ section {
         width: 125px;
     }
 }
-
-/* ANIMAÇÕES */
