@@ -3,10 +3,10 @@ let array = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube'
   'fa-paper-plane-o', 'fa-cube'
 ];
 
-const jogadas = document.getElementsByClassName("jogadas");
-const LI_ARRAY = document.getElementsByClassName("card");
-const tempo = document.getElementsByClassName("temporizador");
-const estrelas = document.getElementsByClassName("fa-star");
+const jogadas = document.getElementsByClassName('jogadas');
+const LI_ARRAY = document.getElementsByClassName('card');
+const tempo = document.getElementsByClassName('temporizador');
+const estrelas = document.getElementsByClassName('fa-star');
 const bsClassesCards = 'card justify-content-center align-items-center m-2';
 
 let tempoDeJogo;
@@ -101,9 +101,9 @@ function iniciarTempo() {
 
 function reiniciarJogo() {
   limparArrays();
-  for(let i = 0; i <= estrelas.length; i++) {
-    estrelas[i].setAttribute("class", "fa");
-  }
+  document.getElementsByTagName("i")[2].setAttribute('class', 'fa fa-star');
+  document.getElementsByTagName("i")[1].setAttribute('class', 'fa fa-star');
+  jogada = 0;
   jogadas[0].innerHTML = `Jogadas: 0`;
   tempo[0].innerHTML = `Tempo: 00:00`;
   segundos = 0;
@@ -121,11 +121,11 @@ function combinarCartas() {
   const cartaUm = cartasClicadas[0];
   const cartaDois = cartasClicadas[1];
   if (cartasAbertas[0] === cartasAbertas[1]) {
-    percorrerArrayLi("cartasCombinadas", cartaUm, cartaDois);
+    percorrerArrayLi('cartasCombinadas', cartaUm, cartaDois);
     limparArrays();
   } else {
     setTimeout(function () {
-      percorrerArrayLi("desvirarCarta", cartaUm, cartaDois);
+      percorrerArrayLi('desvirarCarta', cartaUm, cartaDois);
       limparArrays();
     }, 600);
   }
@@ -155,7 +155,7 @@ function limparArrays() {
 }
 
 function reduzirEstrelas(estrela) {
-  estrela.setAttribute("class", "fa fa-star-o");
+  estrela.setAttribute('class', 'fa fa-star-o');
 }
 
 function cartasCombinadas(elemento) {
@@ -167,7 +167,7 @@ function cartasCombinadas(elemento) {
 
     var pontuacao = '';
 
-    for (let i = 0; i < document.getElementsByClassName("fa-star").length; i++) {
+    for (let i = 0; i < document.getElementsByClassName('fa-star').length; i++) {
       pontuacao = pontuacao + '<i class="fa fa-star"></i>';
     }
 
