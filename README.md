@@ -1,11 +1,5 @@
 # Projeto Jogo da Memória
 
-## Tabela de Conteúdos
-
-* [O que é](#o-que-é)
-* [O jogo](#o-jogo)
-* [License](#license)
-
 ## O que é
 
 Este é o projeto **Jogo da Memória** do Nanodegree [Desenvolvedor Web Front-End](https://br.udacity.com/course/front-end-web-developer-nanodegree--nd001#) produzido pela Udacity.
