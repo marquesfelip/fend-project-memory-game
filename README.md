@@ -2,8 +2,8 @@
 
 ## Tabela de Conteúdos
 
-* [O que é](#oqueé)
-* [O jogo](#ojogo)
+* [O que é](#o-que-é)
+* [O jogo](#o-jogo)
 * [License](#license)
 
 ## O que é
