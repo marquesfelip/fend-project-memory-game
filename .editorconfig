@@ -3,12 +3,12 @@ root = true
 
 # GENERIC SETTINGS
 [*]
+charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 
 # WEB FILES
 [*.{css,html,js}]
-charset = utf-8
 indent_style = space
 trim_trailing_whitespace = true
 
@@ -23,6 +23,7 @@ indent_size = 4
 # MARKDOWN
 [*.md]
 trim_trailing_whitespace = false
+insert_final_newline = false
 
 # NODE PROJECTS
 [{bower.json,package.json,.travis.yml}]

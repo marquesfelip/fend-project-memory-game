@@ -9,6 +9,8 @@ const tempo = document.getElementsByClassName('temporizador');
 const estrelas = document.getElementsByClassName('fa-star');
 const bsClassesCards = 'card justify-content-center align-items-center m-2';
 
+let cliqueLiberado = false;
+
 let tempoDeJogo;
 
 let cartasAbertas = [],
@@ -32,7 +34,7 @@ function iniciarJogo() {
     virarCarta(element);
     setTimeout(() => {
       desvirarCarta(element);
-
+      cliqueLiberado = true;
     }, 2000);
   });
 
@@ -41,7 +43,7 @@ function iniciarJogo() {
 
       const conteudo = element.innerHTML.trim();
 
-      if (cartasClicadas.length === 2) {
+      if (cartasClicadas.length === 2 || cliqueLiberado == false) {
         return;
       } else if (cartasAbertas.length > 0 && cartasAbertas.length < 2 && !(cartasClicadas.includes(index))) {
         if (!(element.classList.contains('match'))) {
@@ -86,6 +88,7 @@ function desvirarCarta(elemento) {
 }
 
 function iniciarTempo() {
+  cliqueLiberado = false;
   tempoDeJogo = setInterval(function () {
     segundos++;
     segundos = ("0" + segundos).slice(-2);
