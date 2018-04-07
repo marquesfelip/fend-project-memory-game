@@ -145,6 +145,7 @@ function iniciarTempo() {
  * @description Função que irá reiniciar jogo
  * Limpar arrays, voltar a 3 estrelas, zerar número de jogadas e tempo, tanto no html como nas variáveis
  * Por fim chamando a função iniciarJogo() novamente, a função usada quando a página é carregada.
+ * Reiniciar e Jogar Novamente do modal exibido ao final do jogo irão chamar essa função pelo atributo onclick.
  */
 function reiniciarJogo() {
   limparArrays();
