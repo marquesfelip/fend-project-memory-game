@@ -27,13 +27,11 @@ let cartasAbertas = [],
   totalCartasCombinadas = 0,
   jogada = 0,
   tempoDeJogo,
-  cliqueLiberado = false;
+  cliqueLiberado = false,
+  jogoIniciado = false;
 
 iniciarJogo();
 
-/**
- * @description
- */
 function iniciarJogo() {
 
   // A função shuffle irá trocar a ordem de todos os elementos dentro de array
@@ -85,9 +83,13 @@ function iniciarJogo() {
           memorizarCartas(conteudo, index);
         }
       }
+      // A condição abaixo é usada para iniciar o tempo de jogo após o clique na primeira carta.
+      if (!jogoIniciado) {
+        iniciarTempo();
+        jogoIniciado = true;
+      }
     });
   });
-  iniciarTempo();
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -124,10 +126,10 @@ function desvirarCarta(elemento) {
 
 /**
  * @description iniciarTempo irá zerar o temporizador e bloquear o clique das cartas
- * O clique será desbloqueado após todas as cartas serem desviradas, assim passando true para cliqueLiberado
+ * O clique será desbloqueado após todas as cartas serem desviradas, assim passando...
+ * TRUE para cliqueLiberado
  */
 function iniciarTempo() {
-  cliqueLiberado = false;
   tempoDeJogo = setInterval(function () {
     segundos++;
     segundos = ("0" + segundos).slice(-2);
@@ -151,11 +153,15 @@ function reiniciarJogo() {
   limparArrays();
   document.getElementsByTagName("i")[2].setAttribute('class', 'fa fa-star');
   document.getElementsByTagName("i")[1].setAttribute('class', 'fa fa-star');
+  document.getElementsByClassName('modal-body')[0].innerHTML = '';
+  jogoIniciado = false;
+  totalCartasCombinadas = 0;
   jogada = 0;
   jogadas[0].innerHTML = `Jogadas: 0`;
   tempo[0].innerHTML = `Tempo: 00:00`;
   segundos = 0;
   minutos = 0;
+  cliqueLiberado = false;
   clearInterval(tempoDeJogo);
   iniciarJogo();
 }
