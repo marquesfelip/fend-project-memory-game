@@ -43,7 +43,7 @@ function iniciarJogo() {
   });
 
   // As cartas serão exibidas e então escondidas por 2 segundos.
-  Array.from(liArray).forEach(function (element) {
+  Array.from(liArray).forEach(element => {
 
     virarCarta(element);
     setTimeout(() => {
@@ -130,7 +130,7 @@ function desvirarCarta(elemento) {
  * TRUE para cliqueLiberado
  */
 function iniciarTempo() {
-  tempoDeJogo = setInterval(function () {
+  tempoDeJogo = setInterval(() => {
     segundos++;
     segundos = ("0" + segundos).slice(-2);
     if (segundos == 60) {
@@ -189,7 +189,7 @@ function combinarCartas() {
     percorrerArrayLi('cartasCombinadas', cartaUm, cartaDois);
     limparArrays();
   } else {
-    setTimeout(function () {
+    setTimeout(() => {
       percorrerArrayLi('desvirarCarta', cartaUm, cartaDois);
       limparArrays();
     }, 600);
