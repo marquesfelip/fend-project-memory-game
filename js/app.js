@@ -38,7 +38,7 @@ function iniciarJogo() {
   array = shuffle(array);
 
   // Adicionar em cada elemento de liArray uma tag HTML com uma das classes do Array 'array'.
-  Array.from(liArray).forEach(function (element, index) {
+  Array.from(liArray).forEach((element, index) => {
     element.innerHTML = `<i class="fa ${array[index]}"></i>`
   });
 
@@ -55,8 +55,8 @@ function iniciarJogo() {
   });
 
   // Adicionando o evento de click para cada elemento de liArray.
-  Array.from(liArray).forEach(function (element, index) {
-    element.addEventListener('click', function () {
+  Array.from(liArray).forEach((element, index) => {
+    element.addEventListener('click', () => {
 
       // É passado para 'conteudo' o conteúdo interno da tag li que possui a informação necessária...
       // para verificar posteriormente se a primeira carta clicada combina com a segunda.
