@@ -73,8 +73,8 @@ function iniciarJogo() {
           // a carta será exibida...
           virarCarta(element);
           memorizarCartas(conteudo, index);
-          combinarCartas();
           acrescentarJogada();
+          combinarCartas();
         }
       }
       else if (!(cartasClicadas.includes(index))) {
